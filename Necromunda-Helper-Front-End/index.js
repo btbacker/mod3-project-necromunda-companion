@@ -1,9 +1,9 @@
-const body = document.querySelector('body')
+const main = document.querySelector('main')
 
 createPage()
 
 function createPage() {
-    body.innerHTML = ""
+    main.innerHTML = ""
     let logIn = document.createElement('div')
         logIn.id = "log-in"
     let logOut = document.createElement('div')
@@ -26,7 +26,7 @@ function createPage() {
         options.id = "options"
         options.textContent = "Possible Changes"
 
-    body.append(logIn, logOut, headerInfo, squadBar, invBar, selBar, statusBar, options)
+    main.append(logIn, logOut, headerInfo, squadBar, invBar, selBar, statusBar, options)
     
     let button = document.createElement('button')
         button.setAttribute("type", "submit"); 
@@ -51,7 +51,7 @@ function createPage() {
         username.setAttribute("name", "username"); 
         username.setAttribute("placeholder", "Username");
 
-    body.append(logIn, logOut, headerInfo, squadBar, invBar, selBar, statusBar, options)
+    main.append(logIn, logOut, headerInfo, squadBar, invBar, selBar, statusBar, options)
 
     let form = document.createElement('form')
     	form.append(username, button)
@@ -94,20 +94,22 @@ function handleUserData(data, e) {
     
 function newSquadHandler() {
     let squads = document.querySelector('#squad-bar')
+        squads.innerHTML = ""
     let gang = document.createElement('div')
         gang.id = "gang-div"
     let leader = document.createElement('div')
         leader.id = "leader-div"
     let fighters = document.createElement('div')
         fighters.id = "fighter-div"
-    squads.innerHTML = ""
 
-    
     let fightersForm = document.createElement('form')
     let leaderForm = document.createElement('form')
+    let gangForm = document.createElement('form')
+
     leader.append(leaderForm)
     fighters.append(fightersForm)
     gang.append(gangForm)
+
     squads.append(gang, leader, fighters)
 
     let gangDropdown = document.createElement('select')
@@ -132,14 +134,14 @@ function newSquadHandler() {
     gangOption6.textContent = "Escher"
 
     let gangName = document.createElement('input')
-    gangName.setAttribute("type", "text"); 
-    gangName.setAttribute("name", "name"); 
-    gangName.setAttribute("placeholder", "Gang Name");
+        gangName.setAttribute("type", "text"); 
+        gangName.setAttribute("name", "name"); 
+        gangName.setAttribute("placeholder", "Gang Name");
 
     let gangSubmit = document.createElement('button')
-    gangSubmit.textContent = "Found a Gang" 
-    gangSubmit.setAttribute("name", "submit"); 
-    gangSubmit.addEventListener('click', (e) => submitGangHandler(e))
+        gangSubmit.textContent = "Found a Gang" 
+        gangSubmit.setAttribute("name", "submit"); 
+        gangSubmit.addEventListener('click', (e) => submitGangHandler(e))
 
     squads.append(gangName, gangSubmit, leader, fighters)
 
@@ -223,3 +225,26 @@ function submitFighterHandler(e) {
 function submitSquadHandler(e) {
     console.log(e.target.value)
 }
+
+const dice = {
+    sides: 6,
+    roll: function () {
+      var randomNumber = Math.floor(Math.random() * this.sides) + 1;
+      return randomNumber;
+    }
+}
+  
+  
+  //Prints dice roll to the page
+  
+  function displayRoll(number) {
+    var dicePlaceholder = document.getElementById('dice-placeholder');
+    dicePlaceholder.innerHTML = number;
+  }
+  
+  var button = document.getElementById('dice-roll-button');
+    button.onclick = function() {
+        var result = dice.roll();
+        displayRoll(result);
+    };
+  

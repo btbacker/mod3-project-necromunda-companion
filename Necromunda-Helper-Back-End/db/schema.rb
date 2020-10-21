@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 2020_10_19_175556) do
     t.integer "level"
     t.integer "experience"
     t.integer "cost"
+    t.integer "movement"
+    t.integer "weapon_skill"
+    t.integer "ballistic_skill"
+    t.integer "strength"
+    t.integer "toughness"
+    t.integer "wounds"
+    t.integer "initiative"
+    t.integer "attacks"
+    t.integer "leadership"
     t.integer "squad_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -44,6 +53,8 @@ ActiveRecord::Schema.define(version: 2020_10_19_175556) do
 
   create_table "squads", force: :cascade do |t|
     t.string "name"
+    t.string "house"
+    t.integer "credits"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

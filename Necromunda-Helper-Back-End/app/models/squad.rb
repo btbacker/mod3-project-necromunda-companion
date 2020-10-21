@@ -3,5 +3,6 @@ class Squad < ApplicationRecord
   has_many :fighters
   has_many :equipments
 
-  attribute :credits, :integer, default: 1000
+  validates :name, presence: true
+
 end

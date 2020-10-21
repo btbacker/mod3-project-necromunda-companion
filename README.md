@@ -2,24 +2,23 @@
 
 <strong>Introduction</strong>
 
-This Necromunda Companion is an organizational helper intended to be used alongside the main game, increasing efficiency and improving gameplay flow. 
+This Necromunda Companion is an organizational helper intended to be used alongside the main game, increasing efficiency and improving gameplay flow. <br>
 
 Built With: <br>
     - Ruby <br>
-    - Ruby on Rails
-    - Javascript
-    - HTML
+    - Ruby on Rails <br>
+    - Javascript <br>
+    - HTML <br>
     - basic CSS
     <!-- - [additional services] -->
 <br>
 <br>
 <strong>Installation</strong>
 
-Run `git clone <source>` to clone repository from: https://github.com/btbacker/mod3-project-necromunda-companion.
+Run `git clone <source>` to clone repository from: https://github.com/btbacker/mod3-project-necromunda-companion. <br>
 Run `bundle install` to ensure all components are installed and up to date. <br>
 Open a terminal and run the /Necromunda-Helper-Back-End of this project as a Rails server in your local browser using `rails s`. <br>
-Open a second terminal, `cd` to /Necromunda-Helper-Front-End, and open index.html to display the webpage in your local browser. <br>
-
+Open a second terminal, `cd` to /Necromunda-Helper-Front-End, and open index.html to display the webpage in your local browser.
 <br>
 <br>
 <strong>Usage</strong>
@@ -48,8 +47,7 @@ Distributed under the MIT license.  See license doc for more information.
 
 Brandon Backer - btbacker@gmail.com<br>
 Davis Brown - cooliomoded@gmail.com<br>
-Project Link: https://github.com/btbacker/mod3-project-necromunda-companion.
-
+Project Link: https://github.com/btbacker/mod3-project-necromunda-companion
 
 <!-- This README would normally document whatever steps are necessary to get the
 application up and running.

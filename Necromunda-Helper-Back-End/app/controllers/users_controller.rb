@@ -5,7 +5,8 @@ class UsersController < ApplicationController
     end
 
     def create
-        render json: User.create(name: params[:name])
+        user = User.find_or_create_by(name: params[:name])
+        render json: user, include: :squads
     end
 
 end

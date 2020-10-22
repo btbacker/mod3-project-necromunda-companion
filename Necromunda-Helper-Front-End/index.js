@@ -284,3 +284,25 @@ function submitFighterHandler(e) {
 function submitSquadHandler(e) {
     console.log(e.target.value)
 }
+
+const dice = {	
+    sides: 6,	
+    roll: function () {	
+      var randomNumber = Math.floor(Math.random() * this.sides) + 1;	
+      return randomNumber;	
+    }	
+}	
+
+
+  //Prints dice roll to the page	
+
+  function displayRoll(number) {	
+    var dicePlaceholder = document.getElementById('dice-placeholder');	
+    dicePlaceholder.innerHTML = number;	
+  }	
+
+  var button = document.getElementById('dice-roll-button');	
+    button.onclick = function() {	
+        var result = dice.roll();	
+        displayRoll(result);	
+    };	

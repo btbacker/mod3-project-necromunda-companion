@@ -157,6 +157,7 @@ function newSquadHandler() {
 
     let gangDropdown = document.createElement('select')
         gangDropdown.id = "gang-dropdown"
+        gangDropdown.name = "gangdropdown"
     let gangOption1 = document.createElement('option')
         gangOption1.value = "Goliath"
         gangOption1.textContent = "Goliath"
@@ -207,6 +208,7 @@ function newSquadHandler() {
 
     let fighterDropdown = document.createElement('select')
     fighterDropdown.id = "fighter-dropdown"
+    fighterDropdown.name ="fighterdropdown"
     let gangerOption = document.createElement('option')
     gangerOption.value = "Ganger"
     gangerOption.textContent = "Ganger"
@@ -255,27 +257,18 @@ function newSquadHandler() {
 
 function submitGangNameHandler(e) {
     e.preventDefault()
-    console.log(e)
-    debugger
     let gangDiv = document.querySelector('#gang-div')
     gangDiv.innerHTML = ""
     let selectionDiv = document.querySelector('#selection')
     selectionDiv.innerHTML = ""
     let pGangHouse = document.createElement('p')
     pGangHouse.id = "s-gang-house"
-    pGangHouse.innerText = "hello"
+    pGangHouse.innerText = e.target.gangdropdown.value
     let pGangName = document.createElement('p')
     pGangName.id = "s-gang-name"
     pGangName.innerText = e.target.name.value
     selectionDiv.append(pGangHouse, pGangName)
     console.log(selectionDiv)
-    // p = document.createElement('p')
-    // p.id = "s-gang-house"
-    // p2 = document.createElement('p')
-    // p.id = "s-gang-name"
-    // p.innerText = e.target[0].value
-    // p2.innerText = e.target[1].value
-    // selectionDiv.append(p2, p)
 }
 
 function submitLeaderHandler(e) {

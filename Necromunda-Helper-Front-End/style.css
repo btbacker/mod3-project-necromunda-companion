@@ -1,0 +1,63 @@
+@import url(//db.onlinewebfonts.com/c/2e224d2f338baba05bad6b2f07f94f97?family=1651AlchemyW00-Italic);
+
+@font-face {
+    font-family: "1651AlchemyW00-Italic"; 
+    src: url("//db.onlinewebfonts.com/t/2e224d2f338baba05bad6b2f07f94f97.eot"); 
+    src: url("//db.onlinewebfonts.com/t/2e224d2f338baba05bad6b2f07f94f97.eot?#iefix") format("embedded-opentype"); 
+    src: url("//db.onlinewebfonts.com/t/2e224d2f338baba05bad6b2f07f94f97.woff2") format("woff2"); 
+    src: url("//db.onlinewebfonts.com/t/2e224d2f338baba05bad6b2f07f94f97.woff") format("woff"); 
+    src: url("//db.onlinewebfonts.com/t/2e224d2f338baba05bad6b2f07f94f97.ttf") format("truetype"); 
+    src: url("//db.onlinewebfonts.com/t/2e224d2f338baba05bad6b2f07f94f97.svg#1651AlchemyW00-Italic") format("svg"); 
+}
+
+#roll-container {
+    font-family: "1651AlchemyW00-Italic";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#dice-placeholder {
+    height: 25px;
+    width: 25px;
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid gray;
+    border-radius: 10px;  
+    font-size:20px;
+    text-align: center;
+}
+
+#dice-roll-button {
+    width: 65px;
+    font-family : inherit;
+    font-size: 1em;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid grey;
+    transition: 0.5s;
+    opacity: 0.75;
+    text-align: center;
+    outline: none;
+    box-shadow: 0 2.5px #999;
+}
+
+#dice-roll-button:hover {
+    opacity: 1;
+    border: 1px solid red;
+    background-image: url("https://toppng.com/uploads/preview/blood-splat-clipart-blood-splatter-11562919237eyn7ssjt29.png");
+    background-size: 100%;
+    cursor: url(), default;
+    text-decoration: none;
+    outline: none;
+    box-shadow: 0 2.5px rgb(160, 24, 24);
+}
+
+#dice-roll-button:active {
+    border: 1px solid red;
+    background-image: url("https://toppng.com/uploads/preview/blood-splat-clipart-blood-splatter-11562919237eyn7ssjt29.png");
+    background-size: 100%;
+    box-shadow: 0 1px rgb(77, 11, 11);
+    transform: translateY(1.5px);
+    transition: 0s;
+}

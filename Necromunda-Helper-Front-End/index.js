@@ -1,9 +1,9 @@
-const body = document.querySelector('body')
+const main = document.querySelector('main')
 
 createPage()
 
 function createPage() {
-    body.innerHTML = ""
+    main.innerHTML = ""
     let logIn = document.createElement('div')
         logIn.id = "log-in"
     let logOut = document.createElement('div')
@@ -28,40 +28,19 @@ function createPage() {
     let form = document.createElement('form')
         form.id = "log-in-form"
         form.addEventListener('submit', (e) => {
-            e.preventDefault
             logInHandler(e)
         })
-<<<<<<< HEAD
-
-    body.append(logIn, logOut, headerInfo, squadBar, invBar, selBar, statusBar, options)
 
     let username = document.createElement('input')
         username.setAttribute("type", "text"); 
         username.setAttribute("name", "username"); 
         username.setAttribute("placeholder", "Username");
 
-=======
-
-    main.append(logIn, logOut, headerInfo, squadBar, invBar, selBar, statusBar, options)
-
-    let username = document.createElement('input')
-        username.setAttribute("type", "text"); 
-        username.setAttribute("name", "username"); 
-        username.setAttribute("placeholder", "Username");
-
->>>>>>> master
     let button = document.createElement('button')
         button.setAttribute("form", "log-in-form")
         button.setAttribute("type", "submit"); 
         button.setAttribute("name", "submit"); 
         button.textContent = "Log-In"
-        // button.addEventListener('click', (e) => logInHandler(e))
-
-    // let logOutBtn = document.createElement('button')
-        // logOutBtn.setAttribute("name", "log-out")
-        // logOutBtn.textContent = "Log-Out"
-        // logOutBtn.addEventListener('click', (e) => logOutHandler())
-        // logOut.append(logOutBtn)
 
     let newSquad = document.createElement('button')
         newSquad.id = "new-squad-button"
@@ -69,134 +48,95 @@ function createPage() {
         newSquad.addEventListener('click', (e) => newSquadHandler())
         squadBar.append(newSquad)
 
-<<<<<<< HEAD
-    body.append(logIn, logOut, headerInfo, squadBar, invBar, selBar, statusBar, options)
-=======
     main.append(logIn, logOut, headerInfo, squadBar, invBar, selBar, statusBar, options)
->>>>>>> master
     form.append(username, button)
     logIn.appendChild(form)
 }
 
+//creates the page in main
+
 function logInHandler(e) {
     e.preventDefault()
-    fetch('http://127.0.0.1:3000/users')
+    fetch('http://127.0.0.1:3000/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: e.target.username.value
+        })
+    })
         .then(res => res.json())
-        .then(data => handleUserData(data, e))
+        .then(user => buildUserView(user, e))
 }
 
 function logOutHandler() {
     createPage()
 }
 
-function handleUserData(data, e) {
-    e.preventDefault()
-    data.forEach(user => {
-<<<<<<< HEAD
-        let included = user.find(user.name == e.target.username.value)
-        if (included.name == e.target.username.value) {
-
-        } else {
-
-=======
-        if (user.name === e.target.username.value) {
-            logIn = document.querySelector('#log-in')
-                logIn.innerHTML = ""
-            userH2 = document.createElement('h2')
-                userH2.id = data.id
-                userH2.innerText = data.name
-            logIn.append(userH2)
-            buildUserView(data)
-        } 
-        else {
-            fetch('http://127.0.0.1:3000/users', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: e.target.username.value
-                })
-            })
-            .then(res => res.json)
-            .then(user => buildUserView(user))
->>>>>>> master
-        }
-    })
-    //    if(data.find(data.name === e.target.username.value)) {
-    //         logIn = document.querySelector('#log-in')
-    //         logIn.innerHTML = ""
-    //         userH2 = document.createElement('h2')
-    //         userH2.id = data.id
-    //         userH2.innerText = data.name
-    //         logIn.append(userH2)
-    //         buildUserView(data)
-    //     } else {
-    //         fetch('http://127.0.0.1:3000/users', {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify({
-    //                 name: e.target.username.value
-    //             })
-    //         })
-    //         .then(res => res.json)
-    //         .then(user => buildUserView(user))
-    //     }
-}
-
-
-function buildUserView(user) {
-    console.log(user)
-    debugger
-    // squads = document.querySelector('#squad-bar')
-    // logIn = document.querySelector('#log-in')
-    //         logIn.innerHTML = ""
-    //         userH2 = document.createElement('h2')
-    //         userH2.id = user.id
-    //         userH2.innerText = user.name
-    //         logIn.append(userH2)
-    // ul = document.createElement('ul')
-    // ul.id = `${user.name}-fighter-list`
-    // if (user.squads.length > 0) {
-    // user.sqauds.forEach(squad => {
-    //     li = document.createElement('li')
-    //     li.id = squad.name
-    //     li.innerText = squad.name
-    //     ul.appendChild(li)
-    //     squads.appendChild(ul)
-    // })} else {
-    //     squads.innerText = "Currently you have no gangs."
-    // }
-}
-
-function buildUserView(user) {
-    console.log(user)
-    debugger
-    // squads = document.querySelector('#squad-bar')
-    // logIn = document.querySelector('#log-in')
-    //         logIn.innerHTML = ""
-    //         userH2 = document.createElement('h2')
-    //         userH2.id = user.id
-    //         userH2.innerText = user.name
-    //         logIn.append(userH2)
-    // ul = document.createElement('ul')
-    // ul.id = `${user.name}-fighter-list`
-    // if (user.squads.length > 0) {
-    // user.sqauds.forEach(squad => {
-    //     li = document.createElement('li')
-    //     li.id = squad.name
-    //     li.innerText = squad.name
-    //     ul.appendChild(li)
-    //     squads.appendChild(ul)
-    // })} else {
-    //     squads.innerText = "Currently you have no gangs."
-    // }
-}
+function handleUserData(user) {
     
+}
+
+
+function buildUserView(user, e) {
+    let logIn = document.querySelector('#log-in')
+    logIn.innerHTML = ""
+    let logOut = document.querySelector('#log-out')
+    let logOutBtn = document.createElement('button')
+    logOutBtn.setAttribute("name", "log-out")
+    logOutBtn.textContent = "Log-Out"
+    logOutBtn.addEventListener('click', (e) => logOutHandler())
+    logOut.append(logOutBtn)
+    squads = document.querySelector('#squad-bar')
+    logIn = document.querySelector('#log-in')
+            logIn.innerHTML = ""
+            userH2 = document.createElement('h2')
+            userH2.name = user.name
+            userH2.innerText = user.name
+            logIn.append(userH2)
+
+    ul = document.createElement('ul')
+    ul.id = `${user.name}-squad-list`
+
+    if (user.squads.length > 0) {
+    user.squads.forEach(squad => {
+        squadButton = document.createElement('button')
+        squadButton.id = `${squad.name}-button`
+        squadButton.name = `${squad.id}`
+        squadButton.innerText = `${squad.name}`
+        squadButton.addEventListener('click', (e) => fetchSquadHandler(e, user))
+        li = document.createElement('li')
+        li.innerText = squad.name
+        li.appendChild(squadButton)
+        ul.appendChild(li)
+        squads.appendChild(ul)
+    })} else {
+        squads.innerText = "Currently you have no gangs."
+    }
+}
+
+// Modifies page for the User that logged in
+function fetchSquadHandler(e, user) {
+    fetch(`http://127.0.0.1:3000/squads/${e.target.name.value}`)
+    .then(res => res.json())
+    .then(squad => showSquadHandler(squad))
+}
+
+function showSquadHandler(squad) {
+    statusBar = document.querySelector('#status')
+    statusBar.innerText = `Currently looking at: Squad ${squad.name}`
+    selectionBar = document.querySelector('#selection')
+    selectionBar.innerHTML = ""
+    ul = document.createElement('ul')
+    squad.fighters.forEach(fighter => {
+        li = document.createElement('li')
+        li.innerText = `Name: ${fighter.name}, Position: ${fighter.position}, Cost: ${fighter.cost}, Movement: ${fighter.movement}, Weapon Skill: ${fighter.weapon_skill}, Ballistic Skill: ${fighter.ballistic_skill}, Strength: ${fighter.strength}, Toughness: ${fighter.toughness}, Wounds: ${fighter.wounds}, Initiative: ${fighter.initiative}, Attacks: ${fighter.attacks}, Leadership: ${fighter.leadership}`
+        li.value = fighter.id
+    })
+}
+
 function newSquadHandler() {
-    console.log("hello")
     let squads = document.querySelector('#squad-bar')
     let gang = document.createElement('div')
         gang.id = "gang-div"
@@ -212,10 +152,7 @@ function newSquadHandler() {
     let leaderForm = document.createElement('form')
         leaderForm.addEventListener('submit', (e) => submitLeaderHandler(e))
     let gangForm = document.createElement('form')
-<<<<<<< HEAD
         gangForm.addEventListener('submit', (e) => submitGangNameHandler(e) )
-        leaderForm.addEventListener('submit', (e) => submitLeaderHandler(e))
-        fightersForm.addEventListener('submit', (e) => submitFighterHandler(e))
         leader.append(leaderForm)
         fighters.append(fightersForm)
         gang.append(gangForm)
@@ -224,17 +161,6 @@ function newSquadHandler() {
     let gangDropdown = document.createElement('select')
         gangDropdown.id = "gang-dropdown"
         gangDropdown.name = "gangdropdown"
-=======
-        gangForm.addEventListener('submit', (e) => submitGangNameHandler(e))
-        
-    leader.append(leaderForm)
-    fighters.append(fightersForm)
-    gang.append(gangForm)
-    // squads.append(gang, leader, fighters)
-
-    let gangDropdown = document.createElement('select')
-        gangDropdown.id = "gang-dropdown"
->>>>>>> master
     let gangOption1 = document.createElement('option')
         gangOption1.value = "Goliath"
         gangOption1.textContent = "Goliath"
@@ -260,7 +186,6 @@ function newSquadHandler() {
     gangName.setAttribute("placeholder", "Gang Name");
 
     let gangSubmit = document.createElement('button')
-<<<<<<< HEAD
     gangSubmit.textContent = "Found a Gang"
     gangSubmit.setAttribute("type", "submit")
     gangSubmit.setAttribute("name", "submit"); 
@@ -271,27 +196,14 @@ function newSquadHandler() {
     gangDropdown.append(gangOption1, gangOption2, gangOption3, gangOption4, gangOption5, gangOption6)
     gangForm.append(gangDropdown, gangName, gangSubmit)
 
-=======
-        gangSubmit.textContent = "Establish Gang"
-        gangSubmit.setAttribute("type", "submit");
-        gangSubmit.setAttribute("name", "submit");
-        gangSubmit.addEventListener('click', (e) => submitGangHandler(e))
-
->>>>>>> master
     let leaderName = document.createElement('input')
         leaderName.setAttribute("type", "text"); 
         leaderName.setAttribute("name", "name"); 
         leaderName.setAttribute("placeholder", "Name Gang Leader");
 
     let leaderSubmit = document.createElement('button')
-<<<<<<< HEAD
     leaderSubmit.textContent = "A Leader is Forged" 
     leaderSubmit.setAttribute("name", "submit");
-=======
-        leaderSubmit.textContent = "Forge New Leader" 
-        leaderSubmit.setAttribute("name", "submit"); 
-        leaderSubmit.addEventListener('click', (e) => submitLeaderHandler(e))
->>>>>>> master
 
     leaderForm.append(leaderName, leaderSubmit)
     squads.append(gang, gangName, gangSubmit, leader, fighters)
@@ -301,12 +213,8 @@ function newSquadHandler() {
     //button to add leader after pressing it. Disappears. He appears on the fighter list instead.
 
     let fighterDropdown = document.createElement('select')
-<<<<<<< HEAD
     fighterDropdown.id = "fighter-dropdown"
     fighterDropdown.name ="fighterdropdown"
-=======
-        fighterDropdown.id = "fighter-dropdown"
->>>>>>> master
     let gangerOption = document.createElement('option')
         gangerOption.value = "Ganger"
         gangerOption.textContent = "Ganger"
@@ -324,8 +232,8 @@ function newSquadHandler() {
 
     let gangerSubmit = document.createElement('button')
         gangerSubmit.textContent = "Recruit Gang Member" 
-        gangerSubmit.setAttribute("name", "submit"); 
-        gangerSubmit.addEventListener('click', (e) => submitFighterHandler(e))
+        gangerSubmit.setAttribute("type", "submit")
+        gangerSubmit.setAttribute("name", "submit")
     
     fighterDropdown.append(gangerOption, juvieOption, heavyOption)
     fightersForm.append(fighterDropdown, gangerName, gangerSubmit)
@@ -334,7 +242,6 @@ function newSquadHandler() {
         doneButton.setAttribute("type", "button"); 
         doneButton.setAttribute("name", "done-button"); 
         doneButton.textContent = "Done Adding Gang Members"
-        doneButton.addEventListener('click', (e) => submitSquadHandler(e))
 
     squads.append(doneButton)
 
@@ -355,7 +262,6 @@ function newSquadHandler() {
 
 function submitGangNameHandler(e) {
     e.preventDefault()
-<<<<<<< HEAD
     let gangDiv = document.querySelector('#gang-div')
     gangDiv.innerHTML = ""
     let selectionDiv = document.querySelector('#selection')
@@ -367,51 +273,59 @@ function submitGangNameHandler(e) {
     pGangName.id = "s-gang-name"
     pGangName.innerText = e.target.name.value
     selectionDiv.append(pGangHouse, pGangName)
-    console.log(selectionDiv)
-=======
-    console.log(e)
-    debugger
-    let gangDiv = document.querySelector('#gang-div')
-        gangDiv.innerHTML = ""
-    let selectionDiv = document.querySelector('#selection')
-        selectionDiv.innerHTML = ""
-    let pGangHouse = document.createElement('p')
-        pGangHouse.id = "s-gang-house"
-        pGangHouse.innerText = "hello"
-    let pGangName = document.createElement('p')
-        pGangName.id = "s-gang-name"
-        pGangName.innerText = e.target.name.value
-    selectionDiv.append(pGangHouse, pGangName)
-    console.log(selectionDiv)
-    // p = document.createElement('p')
-    // p.id = "s-gang-house"
-    // p2 = document.createElement('p')
-    // p.id = "s-gang-name"
-    // p.innerText = e.target[0].value
-    // p2.innerText = e.target[1].value
-    // selectionDiv.append(p2, p)
->>>>>>> master
+
+    fetch('http://127.0.0.1:3000/squads', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: e.target.name.value,
+            house: e.target.gangdropdown.value
+        })
+    }).then(res => res.json()).then(data => data)
 }
 
 function submitLeaderHandler(e) {
     e.preventDefault()
     console.log(e.target.value)
+    
 }
 
 function submitFighterHandler(e) {
     e.preventDefault()
-    console.log(e.target.value)
+    console.log(e)
+    let selectionDiv = document.querySelector('#selection')
+    let fighterDiv = document.createElement('div')
+        fighterDiv.className = "fighter"
+    let fighter = document.createElement('p')
+        fighter.innerText = e.target.name.value
+    fighterDiv.append(fighter)
+    selectionDiv.append(fighterDiv)
+
+    fetch('http://127.0.0.1:3000/fighters',  {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: e.target.name.value,
+            position: e.target.fighterdropdown.value
+        })
+    }).then(res => res.json()).then(data => data)
 }
+
 
 function submitSquadHandler(e) {
     console.log(e.target.value)
+    let squads = document.querySelector('#squad-bar')
+    squads.innerHTML = ""
+    let inventory = document.querySelector('#inventory-bar')
+    let inventoryDescription = document.createElement('p')
+    inventoryDescription.innerText = "All fighters are automatically equipped with a knife. Select a fighter to equip a weapon to."
+    inventory.append(inventoryDescription)
 }
 
-<<<<<<< HEAD
-=======
-///
-
->>>>>>> master
 const dice = {	
     sides: 6,	
     roll: function () {	
@@ -420,7 +334,6 @@ const dice = {
     }	
 }	
 
-<<<<<<< HEAD
 
   //Prints dice roll to the page	
 
@@ -434,17 +347,3 @@ const dice = {
         var result = dice.roll();	
         displayRoll(result);	
     };	
-=======
-//Prints dice roll to the page	
-
-function displayRoll(number) {	
-    var dicePlaceholder = document.getElementById('dice-placeholder');	
-    dicePlaceholder.innerHTML = number;	
-}	
-
-var button = document.getElementById('dice-roll-button');	
-    button.onclick = function() {	
-        var result = dice.roll();	
-        displayRoll(result);	
-    };
->>>>>>> master

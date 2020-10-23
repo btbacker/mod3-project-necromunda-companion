@@ -1,4 +1,6 @@
 const main = document.querySelector('main')
+const rollHistory = []
+let previousRoll;
 
 createPage()
 
@@ -341,7 +343,6 @@ function submitFighterHandler(e) {
     }).then(res => res.json()).then(data => data)
 }
 
-
 function submitSquadHandler(e) {
     console.log(e.target.value)
     let squads = document.querySelector('#squad-bar')
@@ -361,30 +362,22 @@ const dice = {
       return randomNumber;	
     }	
 }	
+
 //Prints dice roll to the page	
 
 function displayRoll(number) {	
     var dicePlaceholder = document.getElementById('dice-placeholder')	
         dicePlaceholder.innerHTML = number
-    displayPreviousRoll(number)
 }
 
-function displayPreviousRoll(num)
-    let dicePlaceholder2 = document.createElement('div')
-        dicePlaceholder2.id = 'dice-placeholder-2'
-        dicePlaceholder2.innerText = previousRoll
-        console.log(dicePlaceholder2)
-    // if (typeof dicePlaceholder2 == 'undefined') {
-        document.getElementById('roll-container').appendChild(dicePlaceholder2)
-    // }
-    // else if (typeof dicePlaceholder2 !== 'undefined') {
-    //     dicePlaceholder2.innerHTML = ''
-    //     dicePlaceholder2.innerHTML = previousRoll
-    // }
+function displayPreviousRoll(num) {
+    document.getElementById('roll-history').innerHTML = `<div id="dice-placeholder-2">${num}</div>`;
 }	
 
 var button = document.getElementById('dice-roll-button');	
-button.onclick = function() {	
-    var result = dice.roll();	
+button.onclick = function() {
+    if (previousRoll) displayPreviousRoll(previousRoll)	
+    const result = dice.roll();
+    previousRoll = result
     displayRoll(result);	
-};	
+};

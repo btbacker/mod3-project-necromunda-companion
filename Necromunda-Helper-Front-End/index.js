@@ -372,12 +372,8 @@ function deleteFighter() {
             id: `${fighter.id}`
         })
     })
-
-            name: e.target.name.value,
-            position: e.target.fighterdropdown.value,
-            squad_id: sessionStorage.getItem('squad_id')
-        })
-    }).then(res => res.json()).then(fighter => buildFighterHandler(fighter))
+    .then(res => res.json())
+    .then(fighter => buildFighterHandler(fighter))
 }
 
 function buildFighterHandler(fighter) {

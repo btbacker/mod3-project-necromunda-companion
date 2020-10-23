@@ -2,6 +2,12 @@ const main = document.querySelector('main')
 
 createPage()
 
+// function loginPage() {
+
+// }
+
+
+
 function createPage() {
     main.innerHTML = ""
     let logIn = document.createElement('div')
@@ -57,7 +63,6 @@ function createPage() {
 
 function logInHandler(e) {
     e.preventDefault()
-    console.log(e)
     fetch('http://127.0.0.1:3000/users', {
         method: 'POST',
         headers: {
@@ -82,7 +87,7 @@ function buildUserView(user) {
     let logOut = document.querySelector('#log-out')
     let logOutBtn = document.createElement('button')
     logOutBtn.setAttribute("name", "log-out")
-    logOutBtn.textContent = "Log-Out"
+    logOutBtn.textContent = "Log Out"
     logOutBtn.addEventListener('click', (e) => logOutHandler())
     logOut.append(logOutBtn)
     squads = document.querySelector('#squad-bar')
@@ -95,7 +100,6 @@ function buildUserView(user) {
 
     ul = document.createElement('ul')
     ul.id = `${user.name}-squad-list`
-
     if (user.squads.length > 0) {
     user.squads.forEach(squad => {
         squadButton = document.createElement('button')
@@ -135,6 +139,7 @@ function showSquadHandler(squad) {
 }
 
 function newSquadHandler() {
+    let inventory = document.querySelector('#inventory-bar')
     let squads = document.querySelector('#squad-bar')
     let gang = document.createElement('div')
         gang.id = "gang-div"
@@ -249,14 +254,17 @@ function newSquadHandler() {
         newSquadName.id = "new-squad-name"
         newSquadName.innerText = "Squad Name: As yet Unknown"
     let newSquadCredits = document.createElement('p')
-        newSquadCredits.id = "new-squad-credits"
-        newSquadCredits.innerHTML = "Starting Credits: 1000"
+        newSquadCredits.innerHTML = "Starting Credits: "
+    let innerP = document.createElement('p')
+        innerP.id = "new-squad-credits"
+        innerP.innerHTML = "1000"
     let newSquadInfo = document.createElement('p')
         newSquadInfo.id = "new-squad-info"
         newSquadInfo.innerHTML = "Each new Squad must belong to a House, have a Name, a Leader, and at least 4 (but no more than 10) other gang members. The Gang Leader costs 120 credits, Heavies cost 60, Gangers cost 50, and Juvies cost 25."
-    
-    selectionDiv.append(newSquadName, newSquadCredits, newSquadInfo)
-}
+    newSquadCredits.append(innerP)
+    inventory.append(newSquadCredits)
+    selectionDiv.append(newSquadName, newSquadInfo)
+}   
 
 function submitGangNameHandler(e) {
     e.preventDefault()
@@ -266,10 +274,10 @@ function submitGangNameHandler(e) {
     selectionDiv.innerHTML = ""
     let pGangHouse = document.createElement('p')
     pGangHouse.id = "s-gang-house"
-    pGangHouse.innerText = e.target.gangdropdown.value
+    pGangHouse.innerText = `House: ${e.target.gangdropdown.value}`
     let pGangName = document.createElement('p')
     pGangName.id = "s-gang-name"
-    pGangName.innerText = e.target.name.value
+    pGangName.innerText = `Gang Name: ${e.target.name.value}`
     selectionDiv.append(pGangHouse, pGangName)
 
     fetch('http://127.0.0.1:3000/squads', {
@@ -287,8 +295,28 @@ function submitGangNameHandler(e) {
 
 function submitLeaderHandler(e) {
     e.preventDefault()
-    console.log(e.target.value)
-    
+    console.log(e.target.name.value)
+    fetch('http://127.0.0.1:3000/fighters', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: e.target.name.value,
+            position: "Leader"
+        })
+    })
+    .then(res => res.json())
+    .then(leader => buildLeader(leader))
+}
+
+function buildLeader(leader) {
+    console.log(leader)
+    debugger
+    let sBar = document.querySelector('#selection')
+    let p = document.createElement('p')
+    p.textContent = `Leader: ${leader.name}`
+    sBar.append(p)
 }
 
 function submitFighterHandler(e) {
@@ -326,6 +354,8 @@ function submitSquadHandler(e) {
     inventory.append(inventoryDescription)
 }
 
+/// Dice Assist Visual Representation ///
+
 const dice = {	
     sides: 6,	
     roll: function () {	
@@ -333,17 +363,30 @@ const dice = {
       return randomNumber;	
     }	
 }	
+//Prints dice roll to the page	
 
+function displayRoll(number) {	
+    var dicePlaceholder = document.getElementById('dice-placeholder')	
+        dicePlaceholder.innerHTML = number
+    displayPreviousRoll(number)
+}
 
-  //Prints dice roll to the page	
+function displayPreviousRoll(num)
+    let dicePlaceholder2 = document.createElement('div')
+        dicePlaceholder2.id = 'dice-placeholder-2'
+        dicePlaceholder2.innerText = previousRoll
+        console.log(dicePlaceholder2)
+    // if (typeof dicePlaceholder2 == 'undefined') {
+        document.getElementById('roll-container').appendChild(dicePlaceholder2)
+    // }
+    // else if (typeof dicePlaceholder2 !== 'undefined') {
+    //     dicePlaceholder2.innerHTML = ''
+    //     dicePlaceholder2.innerHTML = previousRoll
+    // }
+}	
 
-  function displayRoll(number) {	
-    var dicePlaceholder = document.getElementById('dice-placeholder');	
-    dicePlaceholder.innerHTML = number;	
-  }	
-
-  var button = document.getElementById('dice-roll-button');	
-    button.onclick = function() {	
-        var result = dice.roll();	
-        displayRoll(result);	
-    };	
+var button = document.getElementById('dice-roll-button');	
+button.onclick = function() {	
+    var result = dice.roll();	
+    displayRoll(result);	
+};	

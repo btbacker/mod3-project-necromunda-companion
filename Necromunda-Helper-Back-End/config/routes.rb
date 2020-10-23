@@ -4,5 +4,4 @@ Rails.application.routes.draw do
   resources :equipment, only: :index
   resources :squads, except: :show
   resources :users, except: :show
-
 end

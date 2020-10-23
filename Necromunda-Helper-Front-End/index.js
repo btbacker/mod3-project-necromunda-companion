@@ -404,18 +404,8 @@ function displayRoll(number) {
 }
 
 function displayPreviousRoll(num) {
-    let dicePlaceholder2 = document.createElement('div')
-        dicePlaceholder2.id = 'dice-placeholder-2'
-        dicePlaceholder2.innerText = num
-        console.log(dicePlaceholder2)
-    // if (typeof dicePlaceholder2 == 'undefined') {
-        document.getElementById('roll-container').appendChild(dicePlaceholder2)
-    // }
-    // else if (typeof dicePlaceholder2 !== 'undefined') {
-    //     dicePlaceholder2.innerHTML = ''
-    //     dicePlaceholder2.innerHTML = previousRoll
-    // }
-}	
+   document.getElementById('roll-history').innerHTML = `<div id="dice-placeholder-2">${num}</div>`;
+}
 
 var button = document.getElementById('dice-roll-button');	
 button.onclick = function() {

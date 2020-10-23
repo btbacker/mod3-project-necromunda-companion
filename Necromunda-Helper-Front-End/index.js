@@ -1,4 +1,6 @@
 const main = document.querySelector('main')
+const rollHistory = []
+let previousRoll;
 
 createPage()
 
@@ -359,7 +361,6 @@ function buildFighterHandler(fighter) {
     selectionDiv.append(fighterDiv)
 }
 
-
 function submitSquadHandler(e) {
     console.log(e.target.value)
     let squads = document.querySelector('#squad-bar')
@@ -379,12 +380,12 @@ const dice = {
       return randomNumber;	
     }	
 }	
+
 //Prints dice roll to the page	
 
 function displayRoll(number) {	
     var dicePlaceholder = document.getElementById('dice-placeholder')	
         dicePlaceholder.innerHTML = number
-    displayPreviousRoll(number)
 }
 
 function displayPreviousRoll(num) {
@@ -402,7 +403,9 @@ function displayPreviousRoll(num) {
 }	
 
 var button = document.getElementById('dice-roll-button');	
-button.onclick = function() {	
-    var result = dice.roll();	
+button.onclick = function() {
+    if (previousRoll) displayPreviousRoll(previousRoll)	
+    const result = dice.roll();
+    previousRoll = result
     displayRoll(result);	
-};	
+};

@@ -8,8 +8,6 @@ createPage()
 
 // }
 
-
-
 function createPage() {
     main.innerHTML = ""
     let logIn = document.createElement('div')
@@ -150,7 +148,6 @@ function newSquadHandler() {
     let fighters = document.createElement('div')
         fighters.id = "fighter-div"
     squads.innerHTML = ""
-
     
     let fightersForm = document.createElement('form')
         fightersForm.addEventListener('submit', (e) => submitFighterHandler(e))
@@ -196,7 +193,6 @@ function newSquadHandler() {
     gangSubmit.setAttribute("name", "submit"); 
     gangSubmit.addEventListener('click', (e) => submitSquadHandler)
     
-
     squads.append(leader, fighters)
 
     gangDropdown.append(gangOption1, gangOption2, gangOption3, gangOption4, gangOption5, gangOption6)
@@ -317,9 +313,11 @@ function submitLeaderHandler(e) {
 function buildLeader(leader) {
     let sBar = document.querySelector('#selection')
     let credits = document.querySelector('#new-squad-credits')
-    credits.innerText = parseInt(credits) - parseInt(leader.cost)
+
+    credits.innerHTML = String.valueOf((parseInt(credits.innerHTML) - parseInt(fighter.cost)))
+
     let p = document.createElement('p')
-    p.textContent = `Leader: ${leader.name}`
+    p.textContent = `name: ${leader.name}, position: ${leader.position}, cost: ${leader.cost}, movement: ${leader.movement}, weapon_skill: ${leader.weapon_skill}, ballistic_skill: ${leader.ballistic_skill}, strength: ${leader.strength}, toughness: ${leader.toughness}, wounds: ${leader.wounds}, initiative: ${leader.initiative}, attacks: ${leader.attacks}, leadership: ${leader.leadership}`
     sBar.append(p)
 }
 
@@ -327,19 +325,54 @@ function submitFighterHandler(e) {
     e.preventDefault()
     console.log(e)
     console.log(sessionStorage.getItem('squad_id'))
-    let selectionDiv = document.querySelector('#selection')
-    let fighterDiv = document.createElement('div')
-        fighterDiv.className = "fighter"
-    let fighter = document.createElement('p')
-        fighter.innerText = e.target.name.value
-    fighterDiv.append(fighter)
-    selectionDiv.append(fighterDiv)
+    // let selectionDiv = document.querySelector('#selection')
+    // let fighterDiv = document.createElement('div')
+    //     fighterDiv.className = "fighter"
+    // let fighter = document.createElement('p')
+    //     fighter.innerText = e.target.name.value
+    // fighterDiv.append(fighter)
+    // selectionDiv.append(fighterDiv)
     fetch('http://127.0.0.1:3000/fighters', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
+            name: e.target.name.value,
+            position: e.target.fighterdropdown.value,
+            squad_id: sessionStorage.getItem('squad_id')
+        })
+    }).then(res => res.json()).then(fighter => buildFighterHandler(fighter))
+}
+
+function buildFighterHandler(fighter) {
+    sessionStorage.setItem(`${fighter.name}`, `${fighter.id}`)
+    let credits = document.querySelector('#new-squad-credits')
+    credits.innerHTML = String.valueOf((parseInt(credits.innerHTML) - parseInt(fighter.cost)))
+    let selectionDiv = document.querySelector('#selection')
+    let fighterDiv = document.createElement('div')
+        fighterDiv.className = "fighter"
+    let fighterP = document.createElement('p')
+        fighterP.textContent = `name: ${fighter.name}, position: ${fighter.position}, cost: ${fighter.cost}, movement: ${fighter.movement}, weapon_skill: ${fighter.weapon_skill}, ballistic_skill: ${fighter.ballistic_skill}, strength: ${fighter.strength}, toughness: ${fighter.toughness}, wounds: ${fighter.wounds}, initiative: ${fighter.initiative}, attacks: ${fighter.attacks}, leadership: ${fighter.leadership}`
+    let deleteFighterButton = document.createElement('button')
+    deleteFighterButton.addEventListener('click', () => deleteFighter(fighter))
+
+    fighterDiv.append(fighterP, deleteFighterButton)
+    selectionDiv.append(fighterDiv)
+}
+
+function deleteFighter() {
+    fetch(`http://127.0.0.1:3000/fighters/${fighter.id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+
+            id: `${fighter.id}`
+        })
+    })
+
             name: e.target.name.value,
             position: e.target.fighterdropdown.value,
             squad_id: sessionStorage.getItem('squad_id')

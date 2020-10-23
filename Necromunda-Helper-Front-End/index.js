@@ -279,7 +279,8 @@ function submitGangNameHandler(e) {
         },
         body: JSON.stringify({
             name: e.target.name.value,
-            house: e.target.gangdropdown.value
+            house: e.target.gangdropdown.value,
+            user_id: sessionStorage.getItem('user_id')
         })
     }).then(res => res.json()).then(data => data)
 }
@@ -308,7 +309,8 @@ function submitFighterHandler(e) {
         },
         body: JSON.stringify({
             name: e.target.name.value,
-            position: e.target.fighterdropdown.value
+            position: e.target.fighterdropdown.value,
+            squad_id: sessionStorage.getItem('squad_id')
         })
     }).then(res => res.json()).then(data => data)
 }

@@ -371,7 +371,8 @@ function deleteFighter() {
             id: `${fighter.id}`
         })
     })
-    .then(res => res.json()).then(fighter => buildFighterHandler(fighter))
+    .then(res => res.json())
+    .then(fighter => buildFighterHandler(fighter))
 }
 
 function buildFighterHandler(fighter) {

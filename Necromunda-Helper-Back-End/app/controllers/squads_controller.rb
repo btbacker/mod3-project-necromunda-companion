@@ -29,6 +29,6 @@ class SquadsController < ApplicationController
     private
 
     def squadParams
-        params.require(:squad).permit(:name, :house, :credits)
+        params.require(:squad).permit(:name, :house, :credits, :user_id)
     end
 end

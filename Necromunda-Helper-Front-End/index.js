@@ -76,7 +76,6 @@ function logInHandler(e) {
     })
         .then(res => res.json())
         .then(user => buildUserView(user))
-        .then(console.log("hi"))
 }
 
 function logOutHandler() {
@@ -86,6 +85,7 @@ function logOutHandler() {
 function buildUserView(user) {
     // let logIn = document.querySelector('#log-in')
     // logIn.innerHTML = ""
+    sessionStorage.setItem('user_id', `${user.id}`)
     let logOut = document.querySelector('#log-out')
     let logOutBtn = document.createElement('button')
     logOutBtn.setAttribute("name", "log-out")
@@ -194,6 +194,7 @@ function newSquadHandler() {
     gangSubmit.textContent = "Found a Gang"
     gangSubmit.setAttribute("type", "submit")
     gangSubmit.setAttribute("name", "submit"); 
+    gangSubmit.addEventListener('click', (e) => submitSquadHandler)
     
 
     squads.append(leader, fighters)
@@ -247,6 +248,7 @@ function newSquadHandler() {
         doneButton.setAttribute("type", "button"); 
         doneButton.setAttribute("name", "done-button"); 
         doneButton.textContent = "Done Adding Gang Members"
+        doneButton.addEventListener('click', (e) => submitSquadHandler(e))
 
     squads.append(doneButton)
 
@@ -289,9 +291,10 @@ function submitGangNameHandler(e) {
         },
         body: JSON.stringify({
             name: e.target.name.value,
-            house: e.target.gangdropdown.value
+            house: e.target.gangdropdown.value,
+            user_id: parseInt(sessionStorage.getItem('user_id'))
         })
-    }).then(res => res.json()).then(data => data)
+    }).then(res => res.json()).then(squad => sessionStorage.setItem('squad_id', `${squad.id}`))
 }
 
 function submitLeaderHandler(e) {
@@ -312,9 +315,9 @@ function submitLeaderHandler(e) {
 }
 
 function buildLeader(leader) {
-    console.log(leader)
-    debugger
     let sBar = document.querySelector('#selection')
+    let credits = document.querySelector('#new-squad-credits')
+    credits.innerText = parseInt(credits) - parseInt(leader.cost)
     let p = document.createElement('p')
     p.textContent = `Leader: ${leader.name}`
     sBar.append(p)
@@ -323,6 +326,7 @@ function buildLeader(leader) {
 function submitFighterHandler(e) {
     e.preventDefault()
     console.log(e)
+    console.log(sessionStorage.getItem('squad_id'))
     let selectionDiv = document.querySelector('#selection')
     let fighterDiv = document.createElement('div')
         fighterDiv.className = "fighter"
@@ -330,17 +334,31 @@ function submitFighterHandler(e) {
         fighter.innerText = e.target.name.value
     fighterDiv.append(fighter)
     selectionDiv.append(fighterDiv)
-
-    fetch('http://127.0.0.1:3000/fighters',  {
+    fetch('http://127.0.0.1:3000/fighters', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
             name: e.target.name.value,
-            position: e.target.fighterdropdown.value
+            position: e.target.fighterdropdown.value,
+            squad_id: sessionStorage.getItem('squad_id')
         })
-    }).then(res => res.json()).then(data => data)
+    }).then(res => res.json()).then(fighter => buildFighterHandler(fighter))
+}
+
+function buildFighterHandler(fighter) {
+    sessionStorage.setItem(`${fighter.name}`, `${fighter.id}`)
+    let credits = document.querySelector('#new-squad-credits')
+    credits.innerHTML = String.valueOf((parseInt(credits.innerHTML) - parseInt(fighter.cost)))
+    let selectionDiv = document.querySelector('#selection')
+    let fighterDiv = document.createElement('div')
+        fighterDiv.className = "fighter"
+    let fighterP = document.createElement('p')
+        fighterP.innerText = e.target.name.value
+
+    fighterDiv.append(fighter)
+    selectionDiv.append(fighterDiv)
 }
 
 function submitSquadHandler(e) {
@@ -371,8 +389,8 @@ function displayRoll(number) {
 }
 
 function displayPreviousRoll(num) {
-    document.getElementById('roll-history').innerHTML = `<div id="dice-placeholder-2">${num}</div>`;
-}	
+   document.getElementById('roll-history').innerHTML = `<div id="dice-placeholder-2">${num}</div>`;
+}
 
 var button = document.getElementById('dice-roll-button');	
 button.onclick = function() {

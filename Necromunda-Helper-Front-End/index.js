@@ -368,16 +368,10 @@ function deleteFighter() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-
             id: `${fighter.id}`
         })
     })
-
-            name: e.target.name.value,
-            position: e.target.fighterdropdown.value,
-            squad_id: sessionStorage.getItem('squad_id')
-        })
-    }).then(res => res.json()).then(fighter => buildFighterHandler(fighter))
+    .then(res => res.json()).then(fighter => buildFighterHandler(fighter))
 }
 
 function buildFighterHandler(fighter) {
@@ -434,8 +428,3 @@ button.onclick = function() {
     previousRoll = result
     displayRoll(result);	
 };
-
-// var audio = $(".mysoundclip")[0];
-// $(".minibutton").onclick(function() {
-//     audio.play();
-// });

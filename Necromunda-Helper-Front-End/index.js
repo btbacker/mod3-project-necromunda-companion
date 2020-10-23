@@ -425,10 +425,17 @@ function displayPreviousRoll(num) {
    document.getElementById('roll-history').innerHTML = `<div id="dice-placeholder-2">${num}</div>`;
 }
 
-var button = document.getElementById('dice-roll-button');	
+var button = document.getElementById('dice-roll-button');
+var audio = document.getElementById('dice-roll')
 button.onclick = function() {
+    audio.play()
     if (previousRoll) displayPreviousRoll(previousRoll)	
     const result = dice.roll();
     previousRoll = result
     displayRoll(result);	
 };
+
+// var audio = $(".mysoundclip")[0];
+// $(".minibutton").onclick(function() {
+//     audio.play();
+// });

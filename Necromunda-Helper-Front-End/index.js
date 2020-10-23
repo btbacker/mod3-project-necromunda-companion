@@ -57,6 +57,7 @@ function createPage() {
 
 function logInHandler(e) {
     e.preventDefault()
+    console.log(e)
     fetch('http://127.0.0.1:3000/users', {
         method: 'POST',
         headers: {
@@ -67,21 +68,17 @@ function logInHandler(e) {
         })
     })
         .then(res => res.json())
-        .then(user => buildUserView(user, e))
+        .then(user => buildUserView(user))
+        .then(console.log("hi"))
 }
 
 function logOutHandler() {
     createPage()
 }
 
-function handleUserData(user) {
-    
-}
-
-
-function buildUserView(user, e) {
-    let logIn = document.querySelector('#log-in')
-    logIn.innerHTML = ""
+function buildUserView(user) {
+    // let logIn = document.querySelector('#log-in')
+    // logIn.innerHTML = ""
     let logOut = document.querySelector('#log-out')
     let logOutBtn = document.createElement('button')
     logOutBtn.setAttribute("name", "log-out")
@@ -104,19 +101,20 @@ function buildUserView(user, e) {
         squadButton = document.createElement('button')
         squadButton.id = `${squad.name}-button`
         squadButton.name = `${squad.id}`
-        squadButton.innerText = `${squad.name}`
-        squadButton.addEventListener('click', (e) => fetchSquadHandler(e, user))
+        squadButton.innerText = 'Edit Squad'
+        squadButton.addEventListener('click', (e) => fetchSquadHandler(squad))
         li = document.createElement('li')
         li.innerText = squad.name
         li.appendChild(squadButton)
         ul.appendChild(li)
         squads.appendChild(ul)
+        console.log(squad)
     })} else {
         squads.innerText = "Currently you have no gangs."
     }
 }
-
 // Modifies page for the User that logged in
+
 function fetchSquadHandler(e, user) {
     fetch(`http://127.0.0.1:3000/squads/${e.target.name.value}`)
     .then(res => res.json())

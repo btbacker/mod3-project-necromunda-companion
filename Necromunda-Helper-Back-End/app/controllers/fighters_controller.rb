@@ -16,21 +16,21 @@ def create
   end
 end
 
-    def update
-        fighter = Fighter.find(params[:id])
-        fighter.update(fighterParams)
-        render json: fighter
-    end
+def update
+    fighter = Fighter.find(params[:id])
+    fighter.update(fighterParams)
+    render json: fighter
+end
 
-    def destroy
-        fighter = Fighter.find(params[:id])
-        fighter.destroy()
-    end
+def destroy
+    fighter = Fighter.find(params[:id])
+    fighter.destroy()
+end
 
-    private
+private
 
-    def fighterParams
-        params.require(:fighter).permit(:name, :position, :level, :experience, :cost, :movement, :weapon_skill, :ballistic_skill, :strength, :toughness, :wounds, :initiative, :attacks, :leadership, :squad_id)
-    end
+def fighterParams
+    params.require(:fighter).permit(:name, :position, :level, :experience, :cost, :movement, :weapon_skill, :ballistic_skill, :strength, :toughness, :wounds, :initiative, :attacks, :leadership, :squad_id)
+end
 
 end

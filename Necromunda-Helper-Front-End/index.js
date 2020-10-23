@@ -2,6 +2,12 @@ const main = document.querySelector('main')
 
 createPage()
 
+// function loginPage() {
+
+// }
+
+
+
 function createPage() {
     main.innerHTML = ""
     let logIn = document.createElement('div')
@@ -57,7 +63,6 @@ function createPage() {
 
 function logInHandler(e) {
     e.preventDefault()
-    console.log(e)
     fetch('http://127.0.0.1:3000/users', {
         method: 'POST',
         headers: {
@@ -82,7 +87,7 @@ function buildUserView(user) {
     let logOut = document.querySelector('#log-out')
     let logOutBtn = document.createElement('button')
     logOutBtn.setAttribute("name", "log-out")
-    logOutBtn.textContent = "Log-Out"
+    logOutBtn.textContent = "Log Out"
     logOutBtn.addEventListener('click', (e) => logOutHandler())
     logOut.append(logOutBtn)
     squads = document.querySelector('#squad-bar')
@@ -95,7 +100,6 @@ function buildUserView(user) {
 
     ul = document.createElement('ul')
     ul.id = `${user.name}-squad-list`
-    debugger
     if (user.squads.length > 0) {
     user.squads.forEach(squad => {
         squadButton = document.createElement('button')
@@ -348,6 +352,8 @@ function submitSquadHandler(e) {
     inventory.append(inventoryDescription)
 }
 
+/// Dice Assist Visual Representation ///
+
 const dice = {	
     sides: 6,	
     roll: function () {	
@@ -355,17 +361,30 @@ const dice = {
       return randomNumber;	
     }	
 }	
+//Prints dice roll to the page	
 
+function displayRoll(number) {	
+    var dicePlaceholder = document.getElementById('dice-placeholder')	
+        dicePlaceholder.innerHTML = number
+    displayPreviousRoll(number)
+}
 
-  //Prints dice roll to the page	
+function displayPreviousRoll(num)
+    let dicePlaceholder2 = document.createElement('div')
+        dicePlaceholder2.id = 'dice-placeholder-2'
+        dicePlaceholder2.innerText = previousRoll
+        console.log(dicePlaceholder2)
+    // if (typeof dicePlaceholder2 == 'undefined') {
+        document.getElementById('roll-container').appendChild(dicePlaceholder2)
+    // }
+    // else if (typeof dicePlaceholder2 !== 'undefined') {
+    //     dicePlaceholder2.innerHTML = ''
+    //     dicePlaceholder2.innerHTML = previousRoll
+    // }
+}	
 
-  function displayRoll(number) {	
-    var dicePlaceholder = document.getElementById('dice-placeholder');	
-    dicePlaceholder.innerHTML = number;	
-  }	
-
-  var button = document.getElementById('dice-roll-button');	
-    button.onclick = function() {	
-        var result = dice.roll();	
-        displayRoll(result);	
-    };	
+var button = document.getElementById('dice-roll-button');	
+button.onclick = function() {	
+    var result = dice.roll();	
+    displayRoll(result);	
+};	

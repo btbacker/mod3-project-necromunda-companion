@@ -317,9 +317,9 @@ function submitLeaderHandler(e) {
 function buildLeader(leader) {
     let sBar = document.querySelector('#selection')
     let credits = document.querySelector('#new-squad-credits')
-    credits.innerText = parseInt(credits) - parseInt(leader.cost)
+    credits.innerHTML = String.valueOf((parseInt(credits.innerHTML) - parseInt(fighter.cost)))
     let p = document.createElement('p')
-    p.textContent = `Leader: ${leader.name}`
+    p.textContent = `name: ${leader.name}, position: ${leader.position}, cost: ${leader.cost}, movement: ${leader.movement}, weapon_skill: ${leader.weapon_skill}, ballistic_skill: ${leader.ballistic_skill}, strength: ${leader.strength}, toughness: ${leader.toughness}, wounds: ${leader.wounds}, initiative: ${leader.initiative}, attacks: ${leader.attacks}, leadership: ${leader.leadership}`
     sBar.append(p)
 }
 
@@ -327,13 +327,13 @@ function submitFighterHandler(e) {
     e.preventDefault()
     console.log(e)
     console.log(sessionStorage.getItem('squad_id'))
-    let selectionDiv = document.querySelector('#selection')
-    let fighterDiv = document.createElement('div')
-        fighterDiv.className = "fighter"
-    let fighter = document.createElement('p')
-        fighter.innerText = e.target.name.value
-    fighterDiv.append(fighter)
-    selectionDiv.append(fighterDiv)
+    // let selectionDiv = document.querySelector('#selection')
+    // let fighterDiv = document.createElement('div')
+    //     fighterDiv.className = "fighter"
+    // let fighter = document.createElement('p')
+    //     fighter.innerText = e.target.name.value
+    // fighterDiv.append(fighter)
+    // selectionDiv.append(fighterDiv)
     fetch('http://127.0.0.1:3000/fighters', {
         method: 'POST',
         headers: {
@@ -355,10 +355,25 @@ function buildFighterHandler(fighter) {
     let fighterDiv = document.createElement('div')
         fighterDiv.className = "fighter"
     let fighterP = document.createElement('p')
-        fighterP.innerText = e.target.name.value
+        fighterP.textContent = `name: ${fighter.name}, position: ${fighter.position}, cost: ${fighter.cost}, movement: ${fighter.movement}, weapon_skill: ${fighter.weapon_skill}, ballistic_skill: ${fighter.ballistic_skill}, strength: ${fighter.strength}, toughness: ${fighter.toughness}, wounds: ${fighter.wounds}, initiative: ${fighter.initiative}, attacks: ${fighter.attacks}, leadership: ${fighter.leadership}`
+    let deleteFighterButton = document.createElement('button')
+    deleteFighterButton.addEventListener('click', () => deleteFighter(fighter))
 
-    fighterDiv.append(fighter)
+    fighterDiv.append(fighterP, deleteFighterButton)
     selectionDiv.append(fighterDiv)
+}
+
+function deleteFighter() {
+    fetch(`http://127.0.0.1:3000/fighters/${fighter.id}`, {
+        method: 'DESTROY',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: `${fighter.id}`
+        })
+    })
+
 }
 
 function submitSquadHandler(e) {

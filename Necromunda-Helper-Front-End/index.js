@@ -390,6 +390,7 @@ function displayRoll(number) {
 
 function displayPreviousRoll(num) {
    document.getElementById('roll-history').innerHTML = `<div id="dice-placeholder-2">${num}</div>`;
+}
 
 var button = document.getElementById('dice-roll-button');	
 button.onclick = function() {
